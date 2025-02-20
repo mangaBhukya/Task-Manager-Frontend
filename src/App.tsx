@@ -1,10 +1,18 @@
+import { useState } from 'react';
 import TaskForm from './components/Task';
-import './App.css';
+import { Task } from './TaskType';
 
-function App() {
+const App = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const addTask = () => {
+    setTasks([...tasks])
+    
+    console.log('tasks');
+  }
   return (
-    <div className="App">
-      <TaskForm/>
+    <div>
+      <TaskForm addTask={addTask}/>
     </div>
   );
 }

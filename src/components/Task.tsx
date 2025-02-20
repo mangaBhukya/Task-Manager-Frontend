@@ -1,14 +1,33 @@
+import { useState } from "react";
+import { Task } from "../TaskType";
 
-const TaskForm  = () => {
+
+interface TaskFormProps {
+    addTask: (task: Task) => void;
+}
+const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
+    const [ title, setTitle] = useState("");
+
+    const handlerSubmit = () => {
+        const newTask = {
+            id: Date.now(),
+            title,
+            completed: false,
+        }
+        addTask(newTask);
+        console.log('1')
+    }
 
     return (
-        <form>
+        <form onSubmit={handlerSubmit}>
             <input
             type = 'text'
             placeholder= 'Enter task'
+            value={title}
+            onChange={(e)=>setTitle(e.target.value)} 
             />
             
-            <button>
+            <button type='submit'>
              Add Task
             </button>
         </form>
