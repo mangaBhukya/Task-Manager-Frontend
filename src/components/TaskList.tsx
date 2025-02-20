@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Task } from "../TaskType";
-import Diamond from '../assets/delete.png'
+import DeleteImg from '../assets/delete.png'
 
 interface TaskListProps {
     tasks: Task[];
@@ -11,12 +11,12 @@ const TaskList: React.FC<TaskListProps> = ({tasks, deleteTask}) => {
  console.log(tasks, 'tasks');
 
     return (
-            <ul>
+            <ul className="task-list">
             {tasks.map((task) => (
-                <li key={task.id}>{task.title}
-                    <button onClick={()=> deleteTask(task.id)}>
-                        <img src={Diamond} alt={task.title} />
-                    </button>
+                <li key={task.id}
+                    className={task.completed? "completed":""} >
+                     {task.title}
+                    <img src={DeleteImg} alt={task.title}  onClick={()=> deleteTask(task.id)}/>
                 </li>
             ))}
             </ul>

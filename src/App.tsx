@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TaskForm from './components/Task';
 import TaskList from './components/TaskList';
 import { Task } from './TaskType';
+import './styles/App.scss';
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -19,7 +20,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div>
+    <div className='app'>
       <TaskForm addTask={addTask}/>
       <TaskList tasks={tasks} deleteTask={deleteTask}/>
     </div>

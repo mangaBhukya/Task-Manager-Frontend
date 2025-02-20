@@ -21,7 +21,7 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
     }
 
     return (
-        <form onSubmit={handlerSubmit}>
+        <form onSubmit={handlerSubmit} className="task-form">
             <input
             type = 'text'
             placeholder= 'Enter task'
