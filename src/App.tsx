@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import TaskForm from './components/Task';
+import TaskList from './components/TaskList';
 import { Task } from './TaskType';
 
 const App = () => {
@@ -13,6 +14,7 @@ const App = () => {
   return (
     <div>
       <TaskForm addTask={addTask}/>
+      <TaskList tasks={tasks}/>
     </div>
   );
 }
