@@ -5,10 +5,10 @@ import { Task } from './TaskType';
 const App = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const addTask = () => {
-    setTasks([...tasks])
+  const addTask = (task: Task) => {
+    setTasks([...tasks, task])
     
-    console.log('tasks');
+    console.log('tasks', tasks);
   }
   return (
     <div>

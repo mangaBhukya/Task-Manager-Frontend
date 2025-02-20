@@ -16,7 +16,8 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
             completed: false,
         }
         addTask(newTask);
-        console.log('1')
+        console.log('newTask', newTask)
+        setTitle('');
     }
 
     return (
