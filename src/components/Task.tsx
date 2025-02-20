@@ -8,7 +8,8 @@ interface TaskFormProps {
 const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
     const [ title, setTitle] = useState("");
 
-    const handlerSubmit = () => {
+    const handlerSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
         const newTask = {
             id: Date.now(),
             title,
