@@ -1,7 +1,6 @@
 export interface Task {
-    id: number;
+    _id: number;
     title: string;
     completed: boolean;
-
+    subtasks: Task[]; // nested subtasks
 }
-
