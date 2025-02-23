@@ -3,11 +3,12 @@ import TaskForm from './components/Task';
 import TaskList from './components/TaskList';
 import { Task } from './TaskType';
 import './styles/App.scss';
-import { createTask, fetchTasks, deleteTask } from './services/api';
+import { createTask, fetchTasks, deleteTask, toggleTask } from './services/api';
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-
+  const [openSubtaskInputs, setOpenSubtaskInputs] = useState<number | null>(null); 
+ 
   useEffect (() => {
     loadTasks();
   }, []);
@@ -16,6 +17,8 @@ const App: React.FC = () => {
     const data = await fetchTasks();
     setTasks(data);
   };
+  console.log('task--------', tasks)
+
 
   const addTask = async(newTaskTitle:string, parentId?:number | undefined) => {
     const newTask = await createTask(newTaskTitle, parentId);
@@ -29,6 +32,7 @@ const App: React.FC = () => {
             {...t, subtasks: addSubtask(t.subtasks)}
         );
       };
+      setOpenSubtaskInputs(null);
       setTasks(addSubtask(tasks));
     }
   };
@@ -38,10 +42,23 @@ const App: React.FC = () => {
     await loadTasks();
   };
 
+
+  const handleToggleTask = async (id: number, completed: boolean) => {
+    await toggleTask(id, !completed);
+    loadTasks();
+  };
+
   return (
     <div className='app'>
       <TaskForm addTask={addTask}/>
-      <TaskList tasks={tasks} handleDelete={handleDelete} addTask={addTask}/>
+      <TaskList 
+        tasks={tasks}
+        handleDelete={handleDelete} 
+        handleToggleTask={handleToggleTask} 
+        addTask={addTask}
+        openSubtaskInputs={openSubtaskInputs} 
+        setOpenSubtaskInputs={setOpenSubtaskInputs}
+        />
     </div>
   );
 }
