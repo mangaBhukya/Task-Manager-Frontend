@@ -22,3 +22,9 @@ export const createTask = async (title: string, parentId?: number) => {
 export const deleteTask = async ( id: number) => {
     await axios.delete(`${API_URL}/${id}`);
 };
+
+
+export const toggleTask = async (id: number, completed: boolean) => {
+    const response = await axios.put(`${API_URL}/${id}`, { completed });
+    return response.data;
+};
