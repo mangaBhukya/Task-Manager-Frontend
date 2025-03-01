@@ -12,8 +12,9 @@ interface TaskListProps {
     handleToggleTask: (id: number, completed: boolean) => void;
     openSubtaskInputs: number | null; 
     setOpenSubtaskInputs: Function;
+    level?: number;
 }
-const TaskList: React.FC<TaskListProps> = ({tasks, handleDelete, addTask, handleToggleTask, openSubtaskInputs, setOpenSubtaskInputs}) => {
+const TaskList: React.FC<TaskListProps> = ({tasks, handleDelete, addTask, handleToggleTask, openSubtaskInputs, setOpenSubtaskInputs, level=0}) => {
  
     return (
         <ul className="task-list">
@@ -22,7 +23,7 @@ const TaskList: React.FC<TaskListProps> = ({tasks, handleDelete, addTask, handle
                     className={task.completed? "completed":""} >
                     <div className="task-item">
                         <span onClick={() => handleToggleTask(task._id, task.completed)}>{task.title}</span>
-                        {!task.completed  && (<img src={PlusImg} alt={task.title} className="plus-icon"
+                        {!task.completed  &&  level < 1 && (<img src={PlusImg} alt={task.title} className="plus-icon"
                             onClick={() => setOpenSubtaskInputs(task._id === openSubtaskInputs ? null : task._id)}/> )}
 
                         <img src={DeleteImg} alt={task.title} className="delete-icon"
@@ -35,7 +36,7 @@ const TaskList: React.FC<TaskListProps> = ({tasks, handleDelete, addTask, handle
                     <TaskForm addTask={addTask} parentId={task._id} />)}
                     {!task.completed && task.subtasks?.length > 0 && (
                         <TaskList tasks={task.subtasks} addTask={addTask} handleDelete={handleDelete} handleToggleTask={handleToggleTask}
-                        openSubtaskInputs={openSubtaskInputs} setOpenSubtaskInputs={setOpenSubtaskInputs}/>
+                        openSubtaskInputs={openSubtaskInputs} setOpenSubtaskInputs={setOpenSubtaskInputs} level={level + 1}/>
                     )}
                 </li>
             ))}
