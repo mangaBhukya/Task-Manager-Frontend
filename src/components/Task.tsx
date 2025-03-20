@@ -1,22 +1,16 @@
 import React, { useState } from "react";
-import { Task } from "../TaskType";
-
 
 interface TaskFormProps {
-    addTask: (task: Task) => void;
+    addTask: (newTaskTitle: string, parentId?:number) => void;
+    parentId?: number;
 }
-const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
+const TaskForm: React.FC<TaskFormProps> = ({addTask, parentId}) => {
     const [ title, setTitle] = useState("");
 
     const handlerSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const newTask = {
-            id: Date.now(),
-            title,
-            completed: false,
-        }
-        addTask(newTask);
-        console.log('newTask', newTask)
+        const newTaskTitle = title;
+        addTask(newTaskTitle, parentId);  
         setTitle('');
     }
 
@@ -24,13 +18,13 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
         <form onSubmit={handlerSubmit} className="task-form">
             <input
             type = 'text'
-            placeholder= 'Enter task'
+            placeholder= {parentId ?'Enter subTask':'Enter task'}
             value={title}
             onChange={(e)=>setTitle(e.target.value)} 
             />
             
             <button type='submit'>
-             Add Task
+             {parentId ? 'Add SubTask': 'Add Task'}
             </button>
         </form>
 
@@ -39,4 +33,3 @@ const TaskForm: React.FC<TaskFormProps> = ({addTask}) => {
 }
 
 export default TaskForm;
-
